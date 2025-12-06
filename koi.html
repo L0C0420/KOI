@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Koi Collection</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐟</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .admin-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            margin-top: 15px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .social-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .filters-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 14px;
+        }
+
+        .filter-group input, .filter-group select {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group input:focus, .filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .inventory-count {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .login-container h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 0;
+            top: -30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #667eea;
+            font-size: 13px;
+            padding: 5px;
+            font-weight: 600;
+        }
+
+        .password-toggle:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #667eea;
+            margin-top: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .admin-controls {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .admin-controls h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .file-upload-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+
+        .file-upload-btn:hover {
+            background: #5568d3;
+        }
+
+        .media-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .media-preview-item {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid #e0e0e0;
+        }
+
+        .media-preview-item img,
+        .media-preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-media {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(245, 87, 108, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .koi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .koi-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .koi-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .quantity-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(102, 126, 234, 0.95);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 10;
+            font-size: 14px;
+        }
+
+        .out-of-stock-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(153, 153, 153, 0.95);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 10;
+            font-size: 14px;
+        }
+
+        .sold-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(245, 87, 108, 0.95);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 10;
+            font-size: 14px;
+        }
+
+        .media-carousel {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .media-item {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: none;
+        }
+
+        .media-item.active {
+            display: block;
+        }
+
+        .media-item:hover {
+            transform: scale(1.05);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: #667eea;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .carousel-btn.prev {
+            left: 10px;
+        }
+
+        .carousel-btn.next {
+            right: 10px;
+        }
+
+        .media-counter {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        .koi-info {
+            padding: 20px;
+        }
+
+        .koi-name {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .koi-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .koi-detail-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #667eea;
+        }
+
+        .koi-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .koi-price {
+            font-size: 1.8em;
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: transform 0.2s;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .edit-btn, .delete-btn, .reorder-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-size: 14px;
+            border: none;
+            color: white;
+        }
+
+        .edit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .delete-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .reorder-btn {
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .edit-btn:hover, .delete-btn:hover, .reorder-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+
+        .fullscreen-content {
+            max-width: 90%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .fullscreen-media {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-fullscreen {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .close-fullscreen:hover {
+            background: white;
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .fullscreen-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            color: #667eea;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .fullscreen-nav:hover {
+            background: white;
+        }
+
+        .fullscreen-nav.prev {
+            left: 30px;
+        }
+
+        .fullscreen-nav.next {
+            right: 30px;
+        }
+
+        .logout-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            max-width: 200px;
+            margin: 20px auto;
+        }
+
+        .error-message {
+            color: #f5576c;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: white;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+
+        .empty-state h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1500;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: #667eea;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            width: auto;
+            padding: 0;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .koi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Customer View (Default) -->
+        <div id="customerView">
+            <header>
+                <h1>🐟 Premium Koi Collection 🐟</h1>
+                <p class="subtitle">Discover Your Perfect Koi</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" id="whatsappLink">📱 WhatsApp</a>
+                    <a href="#" class="social-link" id="instagramLink">📷 Instagram</a>
+                    <a href="#" class="social-link" id="facebookLink">👍 Facebook</a>
+                </div>
+                <a href="#" class="admin-link" onclick="showLogin(); return false;">Admin Login</a>
+            </header>
+
+            <div class="filters-section">
+                <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search for koi by name...">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label>Sort By</label>
+                        <select id="sortSelect">
+                            <option value="none">Default Order</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="size">Size (Length)</option>
+                            <option value="name">Name A-Z</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Price Range</label>
+                        <select id="priceFilter">
+                            <option value="all">All Prices</option>
+                            <option value="0-3000">R 0 - R 3,000</option>
+                            <option value="3000-5000">R 3,000 - R 5,000</option>
+                            <option value="5000-10000">R 5,000 - R 10,000</option>
+                            <option value="10000+">R 10,000+</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Show Sold Koi</label>
+                        <select id="soldFilter">
+                            <option value="available">Available Only</option>
+                            <option value="all">Show All</option>
+                            <option value="sold">Sold Only</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventory-count" id="inventoryCount"></div>
+            <div class="koi-grid" id="customerGrid"></div>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <h2>No Koi Found</h2>
+                <p>Try adjusting your filters or check back soon!</p>
+            </div>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="loginScreen" style="display: none;">
+            <div class="login-container">
+                <h2>Admin Login</h2>
+                <div class="input-group">
+                    <button class="password-toggle" onclick="togglePassword()">Show</button>
+                    <input type="password" id="passwordInput" placeholder="Enter admin password">
+                </div>
+                <button onclick="login()">Login</button>
+                <p class="error-message" id="errorMessage"></p>
+                <a href="#" class="back-link" onclick="showCustomerView(); return false;">← Back to Shop</a>
+            </div>
+        </div>
+
+        <!-- Admin View -->
+        <div id="adminView" style="display: none;">
+            <header>
+                <h1>🐟 Premium Koi Collection - Admin 🐟</h1>
+                <p class="subtitle">Manage Your Inventory</p>
+            </header>
+
+            <div class="admin-controls">
+                <h2 id="formTitle">Add New Koi</h2>
+                <div class="form-group">
+                    <label>Koi Name</label>
+                    <input type="text" id="koiName" placeholder="e.g., Sakura Beauty">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="koiDescription" placeholder="Describe the koi's features, colors, lineage..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Price (R)</label>
+                        <input type="number" id="koiPrice" placeholder="e.g., 2500">
+                    </div>
+                    <div class="form-group">
+                        <label>Size (cm)</label>
+                        <input type="number" id="koiSize" placeholder="e.g., 45">
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="koiQuantity" placeholder="e.g., 1" min="0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="text" id="koiAge" placeholder="e.g., 2 years">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="koiGender">
+                            <option value="">Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Unknown">Unknown</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Variety/Type</label>
+                    <input type="text" id="koiType" placeholder="e.g., Kohaku, Showa, Sanke">
+                </div>
+                <div class="form-group">
+                    <label>Breeder/Lineage</label>
+                    <input type="text" id="koiBreeder" placeholder="e.g., Sakai Fish Farm">
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="koiStatus">
+                        <option value="available">Available</option>
+                        <option value="sold">Sold</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Images & Videos</label>
+                    <input type="file" id="mediaInput" accept="image/*,video/*" multiple style="display: none;">
+                    <label for="mediaInput" class="file-upload-btn">Choose Files</label>
+                    <div class="media-preview" id="mediaPreview"></div>
+                </div>
+                <button onclick="saveKoi()" id="saveBtn">Add Koi</button>
+                <button onclick="cancelEdit()" id="cancelBtn" style="display: none; margin-top: 10px; background: #999;">Cancel Edit</button>
+            </div>
+
+            <div class="admin-controls">
+                <h2>Contact Settings</h2>
+                <div class="form-group">
+                    <label>WhatsApp Number (with country code)</label>
+                    <input type="text" id="whatsappNumber" placeholder="e.g., 27821234567">
+                </div>
+                <div class="form-group">
+                    <label>Instagram Username</label>
+                    <input type="text" id="instagramUsername" placeholder="e.g., koifarm">
+                </div>
+                <div class="form-group">
+                    <label>Facebook Page URL</label>
+                    <input type="text" id="facebookUrl" placeholder="e.g., https://facebook.com/yourpage">
+                </div>
+                <button onclick="saveContactSettings()">Save Contact Settings</button>
+            </div>
+
+            <div class="inventory-count" id="adminInventoryCount"></div>
+            <div class="koi-grid" id="adminGrid"></div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Fullscreen Overlay -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay" onclick="closeFullscreen()">
+        <button class="close-fullscreen" onclick="closeFullscreen()">✕</button>
+        <button class="fullscreen-nav prev" onclick="navigateFullscreen(-1); event.stopPropagation()">‹</button>
+        <button class="fullscreen-nav next" onclick="navigateFullscreen(1); event.stopPropagation()">›</button>
+        <div class="fullscreen-content" onclick="event.stopPropagation()">
+            <img class="fullscreen-media" id="fullscreenMedia" style="display: none;">
+            <video class="fullscreen-media" id="fullscreenVideo" controls style="display: none;"></video>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p>Processing files...</p>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = 'koi2024';
+        let koiList = [
+            {
+                id: 1,
+                name: 'Sunset Dream',
+                description: 'Stunning Kohaku with vibrant red patterns on pure white. Premium bloodline from Japan.',
+                price: 4500,
+                size: 45,
+                age: '2 years',
+                gender: 'Female',
+                type: 'Kohaku',
+                breeder: 'Sakai Fish Farm',
+                status: 'available',
+                quantity: 1,
+                order: 0,
+                media: [
+                    {type: 'image', url: 'https://images.unsplash.com/photo-1520990269108-4f2357ec2e82?w=500&h=500&fit=crop'}
+                ]
+            },
+            {
+                id: 2,
+                name: 'Midnight Pearl',
+                description: 'Elegant Showa with deep black, red, and white coloration. Show-quality specimen.',
+                price: 3800,
+                size: 40,
+                age: '1.5 years',
+                gender: 'Male',
+                type: 'Showa',
+                breeder: 'Dainichi Koi Farm',
+                status: 'available',
+                quantity: 2,
+                order: 1,
+                media: [
+                    {type: 'image', url: 'https://images.unsplash.com/photo-1568459911464-dddb57457591?w=500&h=500&fit=crop'}
+                ]
+            },
+            {
+                id: 3,
+                name: 'Golden Emperor',
+                description: 'Magnificent Yamabuki Ogon with brilliant metallic gold scales. Excellent shape and size.',
+                price: 5200,
+                size: 50,
+                age: '3 years',
+                gender: 'Male',
+                type: 'Yamabuki Ogon',
+                breeder: 'Momotaro Koi Farm',
+                status: 'available',
+                quantity: 1,
+                order: 2,
+                media: [
+                    {type: 'image', url: 'https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=500&h=500&fit=crop'}
+                ]
+            }
+        ];
+
+        let contactSettings = {
+            whatsapp: '',
+            instagram: '',
+            facebook: ''
+        };
+
+        let isAdmin = false;
+        let currentView = 'customer';
+        let selectedFiles = [];
+        let currentFullscreenKoi = null;
+        let currentFullscreenIndex = 0;
+        let editingKoiId = null;
+        let nextKoiId = 4;
+
+        // Load saved data
+        function loadData() {
+            const savedKoi = localStorage.getItem('koiList');
+            const savedContacts = localStorage.getItem('contactSettings');
+            if (savedKoi) koiList = JSON.parse(savedKoi);
+            if (savedContacts) {
+                contactSettings = JSON.parse(savedContacts);
+                updateContactLinks();
+            }
+            nextKoiId = Math.max(...koiList.map(k => k.id), 0) + 1;
+        }
+
+        function saveData() {
+            localStorage.setItem('koiList', JSON.stringify(koiList));
+            localStorage.setItem('contactSettings', JSON.stringify(contactSettings));
+        }
+
+        function updateContactLinks() {
+            const whatsappLink = document.getElementById('whatsappLink');
+            const instagramLink = document.getElementById('instagramLink');
+            const facebookLink = document.getElementById('facebookLink');
+
+            if (contactSettings.whatsapp) {
+                whatsappLink.href = `https://wa.me/${contactSettings.whatsapp}`;
+                whatsappLink.style.display = 'flex';
+            } else {
+                whatsappLink.style.display = 'none';
+            }
+
+            if (contactSettings.instagram) {
+                instagramLink.href = `https://instagram.com/${contactSettings.instagram}`;
+                instagramLink.style.display = 'flex';
+            } else {
+                instagramLink.style.display = 'none';
+            }
+
+            if (contactSettings.facebook) {
+                facebookLink.href = contactSettings.facebook;
+                facebookLink.style.display = 'flex';
+            } else {
+                facebookLink.style.display = 'none';
+            }
+
+            // Load settings in admin
+            document.getElementById('whatsappNumber').value = contactSettings.whatsapp || '';
+            document.getElementById('instagramUsername').value = contactSettings.instagram || '';
+            document.getElementById('facebookUrl').value = contactSettings.facebook || '';
+        }
+
+        function saveContactSettings() {
+            contactSettings.whatsapp = document.getElementById('whatsappNumber').value;
+            contactSettings.instagram = document.getElementById('instagramUsername').value;
+            contactSettings.facebook = document.getElementById('facebookUrl').value;
+            saveData();
+            updateContactLinks();
+            alert('Contact settings saved!');
+        }
+
+        document.getElementById('mediaInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            if (files.length > 0) {
+                document.getElementById('loadingOverlay').classList.add('active');
+                selectedFiles = files;
+                setTimeout(() => {
+                    updateMediaPreview();
+                    document.getElementById('loadingOverlay').classList.remove('active');
+                }, 500);
+            }
+        });
+
+        function updateMediaPreview() {
+            const preview = document.getElementById('mediaPreview');
+            preview.innerHTML = '';
+            
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'media-preview-item';
+                    
+                    if (file.type.startsWith('image/')) {
+                        div.innerHTML = `
+                            <img src="${e.target.result}" alt="Preview">
+                            <button class="remove-media" onclick="removeMedia(${index})">×</button>
+                        `;
+                    } else if (file.type.startsWith('video/')) {
+                        div.innerHTML = `
+                            <video src="${e.target.result}"></video>
+                            <button class="remove-media" onclick="removeMedia(${index})">×</button>
+                        `;
+                    }
+                    
+                    preview.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removeMedia(index) {
+            selectedFiles.splice(index, 1);
+            updateMediaPreview();
+        }
+
+        function showLogin() {
+            document.getElementById('customerView').style.display = 'none';
+            document.getElementById('loginScreen').style.display = 'block';
+            document.getElementById('adminView').style.display = 'none';
+        }
+
+        function showCustomerView() {
+            document.getElementById('customerView').style.display = 'block';
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('adminView').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordInput').type = 'password';
+            document.querySelector('.password-toggle').textContent = 'Show';
+            document.getElementById('errorMessage').textContent = '';
+            currentView = 'customer';
+            renderKoi();
+        }
+
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const button = event.target;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = 'Hide';
+            } else {
+                input.type = 'password';
+                button.textContent = 'Show';
+            }
+        }
+
+        function login() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            if (password === ADMIN_PASSWORD) {
+                isAdmin = true;
+                currentView = 'admin';
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminView').style.display = 'block';
+                renderKoi();
+                updateContactLinks();
+                errorMessage.textContent = '';
+            } else {
+                errorMessage.textContent = 'Incorrect password';
+            }
+        }
+
+        function logout() {
+            isAdmin = false;
+            cancelEdit();
+            showCustomerView();
+        }
+
+        function editKoi(id) {
+            const koi = koiList.find(k => k.id === id);
+            if (!koi) return;
+
+            editingKoiId = id;
+            document.getElementById('formTitle').textContent = 'Edit Koi';
+            document.getElementById('koiName').value = koi.name;
+            document.getElementById('koiDescription').value = koi.description;
+            document.getElementById('koiPrice').value = koi.price;
+            document.getElementById('koiSize').value = koi.size || '';
+            document.getElementById('koiQuantity').value = koi.quantity !== undefined ? koi.quantity : 1;
+            document.getElementById('koiAge').value = koi.age || '';
+            document.getElementById('koiGender').value = koi.gender || '';
+            document.getElementById('koiType').value = koi.type || '';
+            document.getElementById('koiBreeder').value = koi.breeder || '';
+            document.getElementById('koiStatus').value = koi.status || 'available';
+            document.getElementById('saveBtn').textContent = 'Update Koi';
+            document.getElementById('cancelBtn').style.display = 'block';
+
+            // Scroll to form
+            document.querySelector('.admin-controls').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function cancelEdit() {
+            editingKoiId = null;
+            document.getElementById('formTitle').textContent = 'Add New Koi';
+            document.getElementById('koiName').value = '';
+            document.getElementById('koiDescription').value = '';
+            document.getElementById('koiPrice').value = '';
+            document.getElementById('koiSize').value = '';
+            document.getElementById('koiQuantity').value = '1';
+            document.getElementById('koiAge').value = '';
+            document.getElementById('koiGender').value = '';
+            document.getElementById('koiType').value = '';
+            document.getElementById('koiBreeder').value = '';
+            document.getElementById('koiStatus').value = 'available';
+            document.getElementById('mediaInput').value = '';
+            selectedFiles = [];
+            document.getElementById('mediaPreview').innerHTML = '';
+            document.getElementById('saveBtn').textContent = 'Add Koi';
+            document.getElementById('cancelBtn').style.display = 'none';
+        }
+
+        function saveKoi() {
+            const name = document.getElementById('koiName').value;
+            const description = document.getElementById('koiDescription').value;
+            const price = document.getElementById('koiPrice').value;
+            const size = document.getElementById('koiSize').value;
+            const quantity = document.getElementById('koiQuantity').value;
+            const age = document.getElementById('koiAge').value;
+            const gender = document.getElementById('koiGender').value;
+            const type = document.getElementById('koiType').value;
+            const breeder = document.getElementById('koiBreeder').value;
+            const status = document.getElementById('koiStatus').value;
+
+            if (!name || !description || !price) {
+                alert('Please fill in name, description, and price');
+                return;
+            }
+
+            if (editingKoiId) {
+                // Update existing koi
+                const koi = koiList.find(k => k.id === editingKoiId);
+                if (koi) {
+                    koi.name = name;
+                    koi.description = description;
+                    koi.price = parseFloat(price);
+                    koi.size = parseFloat(size) || null;
+                    koi.quantity = parseInt(quantity) || 0;
+                    koi.age = age;
+                    koi.gender = gender;
+                    koi.type = type;
+                    koi.breeder = breeder;
+                    koi.status = status;
+
+                    if (selectedFiles.length > 0) {
+                        document.getElementById('loadingOverlay').classList.add('active');
+                        const media = [];
+                        let filesProcessed = 0;
+
+                        selectedFiles.forEach((file) => {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                media.push({
+                                    type: file.type.startsWith('image/') ? 'image' : 'video',
+                                    url: e.target.result
+                                });
+                                
+                                filesProcessed++;
+                                if (filesProcessed === selectedFiles.length) {
+                                    koi.media = media;
+                                    saveData();
+                                    cancelEdit();
+                                    renderKoi();
+                                    document.getElementById('loadingOverlay').classList.remove('active');
+                                }
+                            };
+                            reader.readAsDataURL(file);
+                        });
+                    } else {
+                        saveData();
+                        cancelEdit();
+                        renderKoi();
+                    }
+                }
+            } else {
+                // Add new koi
+                if (selectedFiles.length === 0) {
+                    alert('Please select at least one image or video');
+                    return;
+                }
+
+                document.getElementById('loadingOverlay').classList.add('active');
+                const media = [];
+                let filesProcessed = 0;
+
+                selectedFiles.forEach((file) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        media.push({
+                            type: file.type.startsWith('image/') ? 'image' : 'video',
+                            url: e.target.result
+                        });
+                        
+                        filesProcessed++;
+                        if (filesProcessed === selectedFiles.length) {
+                            koiList.push({
+                                id: nextKoiId++,
+                                name: name,
+                                description: description,
+                                price: parseFloat(price),
+                                size: parseFloat(size) || null,
+                                quantity: parseInt(quantity) || 0,
+                                age: age,
+                                gender: gender,
+                                type: type,
+                                breeder: breeder,
+                                status: status,
+                                order: koiList.length,
+                                media: media
+                            });
+
+                            saveData();
+                            cancelEdit();
+                            renderKoi();
+                            document.getElementById('loadingOverlay').classList.remove('active');
+                        }
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+
+        function deleteKoi(id) {
+            if (confirm('Are you sure you want to delete this koi?')) {
+                koiList = koiList.filter(k => k.id !== id);
+                saveData();
+                renderKoi();
+            }
+        }
+
+        function moveKoi(id, direction) {
+            const index = koiList.findIndex(k => k.id === id);
+            if (index === -1) return;
+
+            const newIndex = direction === 'up' ? index - 1 : index + 1;
+            if (newIndex < 0 || newIndex >= koiList.length) return;
+
+            [koiList[index], koiList[newIndex]] = [koiList[newIndex], koiList[index]];
+            koiList.forEach((koi, i) => koi.order = i);
+            saveData();
+            renderKoi();
+        }
+
+        function createCarousel(koi, koiIndex) {
+            if (koi.media.length === 1) {
+                const mediaItem = koi.media[0];
+                if (mediaItem.type === 'image') {
+                    return `<img src="${mediaItem.url}" alt="${koi.name}" class="media-item active" onclick="openFullscreen(${koiIndex}, 0)">`;
+                } else {
+                    return `<video src="${mediaItem.url}" class="media-item active" onclick="openFullscreen(${koiIndex}, 0)" muted loop autoplay></video>`;
+                }
+            }
+
+            let html = '<div class="media-carousel">';
+            koi.media.forEach((mediaItem, index) => {
+                if (mediaItem.type === 'image') {
+                    html += `<img src="${mediaItem.url}" alt="${koi.name}" class="media-item ${index === 0 ? 'active' : ''}" onclick="openFullscreen(${koiIndex}, ${index})">`;
+                } else {
+                    html += `<video src="${mediaItem.url}" class="media-item ${index === 0 ? 'active' : ''}" onclick="openFullscreen(${koiIndex}, ${index})" muted loop ${index === 0 ? 'autoplay' : ''}></video>`;
+                }
+            });
+            html += `
+                <button class="carousel-btn prev" onclick="changeMedia(event, ${koiIndex}, -1)">‹</button>
+                <button class="carousel-btn next" onclick="changeMedia(event, ${koiIndex}, 1)">›</button>
+                <div class="media-counter">1/${koi.media.length}</div>
+            </div>`;
+            return html;
+        }
+
+        function changeMedia(event, koiIndex, direction) {
+            event.stopPropagation();
+            const card = event.target.closest('.koi-card');
+            const carousel = card.querySelector('.media-carousel');
+            const items = carousel.querySelectorAll('.media-item');
+            const counter = carousel.querySelector('.media-counter');
+            
+            let currentIndex = 0;
+            items.forEach((item, index) => {
+                if (item.classList.contains('active')) {
+                    currentIndex = index;
+                    item.classList.remove('active');
+                    if (item.tagName === 'VIDEO') item.pause();
+                }
+            });
+
+            currentIndex = (currentIndex + direction + items.length) % items.length;
+            items[currentIndex].classList.add('active');
+            if (items[currentIndex].tagName === 'VIDEO') {
+                items[currentIndex].play();
+            }
+            counter.textContent = `${currentIndex + 1}/${items.length}`;
+        }
+
+        function openFullscreen(koiIndex, mediaIndex) {
+            currentFullscreenKoi = koiIndex;
+            currentFullscreenIndex = mediaIndex;
+            displayFullscreenMedia();
+            document.getElementById('fullscreenOverlay').classList.add('active');
+        }
+
+        function displayFullscreenMedia() {
+            const filteredKoi = getFilteredKoi();
+            const koi = filteredKoi[currentFullscreenKoi];
+            const mediaItem = koi.media[currentFullscreenIndex];
+            const img = document.getElementById('fullscreenMedia');
+            const video = document.getElementById('fullscreenVideo');
+
+            if (mediaItem.type === 'image') {
+                img.src = mediaItem.url;
+                img.style.display = 'block';
+                video.style.display = 'none';
+                video.pause();
+            } else {
+                video.src = mediaItem.url;
+                video.style.display = 'block';
+                img.style.display = 'none';
+                video.play();
+            }
+
+            const prevBtn = document.querySelector('.fullscreen-nav.prev');
+            const nextBtn = document.querySelector('.fullscreen-nav.next');
+            if (koi.media.length > 1) {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+            } else {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            }
+        }
+
+        function navigateFullscreen(direction) {
+            const filteredKoi = getFilteredKoi();
+            const koi = filteredKoi[currentFullscreenKoi];
+            currentFullscreenIndex = (currentFullscreenIndex + direction + koi.media.length) % koi.media.length;
+            displayFullscreenMedia();
+        }
+
+        function closeFullscreen() {
+            document.getElementById('fullscreenOverlay').classList.remove('active');
+            document.getElementById('fullscreenVideo').pause();
+        }
+
+        function getFilteredKoi() {
+            let filtered = [...koiList];
+
+            // Search filter
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(koi => 
+                    koi.name.toLowerCase().includes(searchTerm) ||
+                    koi.description.toLowerCase().includes(searchTerm) ||
+                    (koi.type && koi.type.toLowerCase().includes(searchTerm))
+                );
+            }
+
+            // Price filter
+            const priceFilter = document.getElementById('priceFilter').value;
+            if (priceFilter !== 'all') {
+                if (priceFilter === '10000+') {
+                    filtered = filtered.filter(koi => koi.price >= 10000);
+                } else {
+                    const [min, max] = priceFilter.split('-').map(Number);
+                    filtered = filtered.filter(koi => koi.price >= min && koi.price < max);
+                }
+            }
+
+            // Sold filter
+            const soldFilter = document.getElementById('soldFilter').value;
+            if (soldFilter === 'available') {
+                filtered = filtered.filter(koi => koi.status !== 'sold');
+            } else if (soldFilter === 'sold') {
+                filtered = filtered.filter(koi => koi.status === 'sold');
+            }
+
+            // Sort
+            const sortBy = document.getElementById('sortSelect').value;
+            if (sortBy === 'price-low') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortBy === 'price-high') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortBy === 'size') {
+                filtered.sort((a, b) => (b.size || 0) - (a.size || 0));
+            } else if (sortBy === 'name') {
+                filtered.sort((a, b) => a.name.localeCompare(b.name));
+            } else {
+                filtered.sort((a, b) => a.order - b.order);
+            }
+
+            return filtered;
+        }
+
+        function updateInventoryCount() {
+            const available = koiList.filter(k => k.status !== 'sold').length;
+            const sold = koiList.filter(k => k.status === 'sold').length;
+            const total = koiList.length;
+
+            if (currentView === 'customer') {
+                const filtered = getFilteredKoi();
+                document.getElementById('inventoryCount').textContent = 
+                    `Showing ${filtered.length} koi • ${available} Available • ${sold} Sold`;
+            } else {
+                document.getElementById('adminInventoryCount').textContent = 
+                    `Total: ${total} koi • ${available} Available • ${sold} Sold`;
+            }
+        }
+
+        function renderKoi() {
+            updateInventoryCount();
+
+            if (currentView === 'customer') {
+                const grid = document.getElementById('customerGrid');
+                const emptyState = document.getElementById('emptyState');
+                grid.innerHTML = '';
+
+                const filtered = getFilteredKoi();
+
+                if (filtered.length === 0) {
+                    emptyState.style.display = 'block';
+                    return;
+                } else {
+                    emptyState.style.display = 'none';
+                }
+
+                filtered.forEach((koi, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'koi-card';
+                    
+                    let detailsHTML = '';
+                    if (koi.size || koi.age || koi.gender || koi.type) {
+                        detailsHTML = '<div class="koi-details">';
+                        if (koi.type) detailsHTML += `<span class="koi-detail-item">${koi.type}</span>`;
+                        if (koi.size) detailsHTML += `<span class="koi-detail-item">${koi.size}cm</span>`;
+                        if (koi.age) detailsHTML += `<span class="koi-detail-item">${koi.age}</span>`;
+                        if (koi.gender) detailsHTML += `<span class="koi-detail-item">${koi.gender}</span>`;
+                        detailsHTML += '</div>';
+                    }
+
+                    const whatsappMsg = encodeURIComponent(`Hi! I'm interested in ${koi.name} (R ${koi.price.toLocaleString()})`);
+
+                    const isOutOfStock = koi.quantity === 0 && koi.status !== 'sold';
+                    const showQuantity = koi.quantity > 1;
+
+                    card.innerHTML = `
+                        ${koi.status === 'sold' ? '<div class="sold-badge">SOLD</div>' : ''}
+                        ${isOutOfStock ? '<div class="out-of-stock-badge">OUT OF STOCK</div>' : ''}
+                        ${showQuantity ? `<div class="quantity-badge">${koi.quantity} Available</div>` : ''}
+                        ${createCarousel(koi, index)}
+                        <div class="koi-info">
+                            <div class="koi-name">${koi.name}</div>
+                            ${detailsHTML}
+                            <div class="koi-description">${koi.description}</div>
+                            ${koi.breeder ? `<p style="color: #999; font-size: 13px; margin-bottom: 10px;">🏆 ${koi.breeder}</p>` : ''}
+                            <div class="koi-price">R ${koi.price.toLocaleString()}</div>
+                            ${koi.status !== 'sold' && !isOutOfStock && contactSettings.whatsapp ? 
+                                `<a href="https://wa.me/${contactSettings.whatsapp}?text=${whatsappMsg}" target="_blank" style="text-decoration: none;">
+                                    <button class="contact-btn">📱 Inquire on WhatsApp</button>
+                                </a>` : ''}
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            } else if (currentView === 'admin') {
+                const grid = document.getElementById('adminGrid');
+                grid.innerHTML = '';
+
+                koiList.sort((a, b) => a.order - b.order).forEach((koi, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'koi-card';
+                    
+                    let detailsHTML = '';
+                    if (koi.size || koi.age || koi.gender || koi.type) {
+                        detailsHTML = '<div class="koi-details">';
+                        if (koi.type) detailsHTML += `<span class="koi-detail-item">${koi.type}</span>`;
+                        if (koi.size) detailsHTML += `<span class="koi-detail-item">${koi.size}cm</span>`;
+                        if (koi.age) detailsHTML += `<span class="koi-detail-item">${koi.age}</span>`;
+                        if (koi.gender) detailsHTML += `<span class="koi-detail-item">${koi.gender}</span>`;
+                        detailsHTML += '</div>';
+                    }
+
+                    const isOutOfStock = koi.quantity === 0 && koi.status !== 'sold';
+                    const showQuantity = koi.quantity !== undefined && koi.quantity !== 1;
+
+                    card.innerHTML = `
+                        ${koi.status === 'sold' ? '<div class="sold-badge">SOLD</div>' : ''}
+                        ${isOutOfStock ? '<div class="out-of-stock-badge">OUT OF STOCK</div>' : ''}
+                        ${showQuantity ? `<div class="quantity-badge">Qty: ${koi.quantity}</div>` : ''}
+                        ${createCarousel(koi, index)}
+                        <div class="koi-info">
+                            <div class="koi-name">${koi.name}</div>
+                            ${detailsHTML}
+                            <div class="koi-description">${koi.description}</div>
+                            ${koi.breeder ? `<p style="color: #999; font-size: 13px; margin-bottom: 10px;">🏆 ${koi.breeder}</p>` : ''}
+                            <div class="koi-price">R ${koi.price.toLocaleString()}</div>
+                            <div class="action-buttons" style="display: flex; gap: 10px;">
+                                ${index > 0 ? `<button class="reorder-btn" onclick="moveKoi(${koi.id}, 'up')" style="flex: 0 0 40px; padding: 8px;">↑</button>` : ''}
+                                ${index < koiList.length - 1 ? `<button class="reorder-btn" onclick="moveKoi(${koi.id}, 'down')" style="flex: 0 0 40px; padding: 8px;">↓</button>` : ''}
+                            </div>
+                            <div class="action-buttons">
+                                <button class="edit-btn" onclick="editKoi(${koi.id})">Edit</button>
+                                <button class="delete-btn" onclick="deleteKoi(${koi.id})">Delete</button>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        // Event listeners for filters
+        document.getElementById('searchBox').addEventListener('input', renderKoi);
+        document.getElementById('sortSelect').addEventListener('change', renderKoi);
+        document.getElementById('priceFilter').addEventListener('change', renderKoi);
+        document.getElementById('soldFilter').addEventListener('change', renderKoi);
+
+        // Close fullscreen with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeFullscreen();
+            } else if (e.key === 'ArrowLeft' && document.getElementById('fullscreenOverlay').classList.contains('active')) {
+                navigateFullscreen(-1);
+            } else if (e.key === 'ArrowRight' && document.getElementById('fullscreenOverlay').classList.contains('active')) {
+                navigateFullscreen(1);
+            }
+        });
+
+        // Enter key to login
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Initialize
+        loadData();
+        updateContactLinks();
+        renderKoi();
+    </script>
+</body>
+</html>
